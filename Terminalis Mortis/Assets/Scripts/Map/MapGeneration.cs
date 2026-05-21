@@ -27,7 +27,7 @@ public class GridGenerator : MonoBehaviour
     {
         BuildDictionary();
         AsciiCharacters[,] myMap = new AsciiCharacters[,] {
-            {AsciiCharacters.aWall, AsciiCharacters.Wall, AsciiCharacters.Wall},
+            {AsciiCharacters.Wall, AsciiCharacters.Wall, AsciiCharacters.Wall},
             {AsciiCharacters.Wall, AsciiCharacters.Malware, AsciiCharacters.Wall },
             {AsciiCharacters.Wall, AsciiCharacters.Player, AsciiCharacters.Wall }
 
@@ -36,7 +36,7 @@ public class GridGenerator : MonoBehaviour
     }
 
 
-    public void SetMap(AsciiCharacter[,] newMap)
+    public void SetMap(AsciiCharacters[,] newMap)
     {
         map = newMap;
         GenerateMap(map);
