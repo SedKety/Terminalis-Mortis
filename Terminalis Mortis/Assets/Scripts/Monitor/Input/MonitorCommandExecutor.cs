@@ -17,7 +17,7 @@ public class MonitorCommandExecutor
             { MonitorCommandType.Attack, new MonitorCommandResult { Output = "Attack where? Use: attack <direction or target>" } },
             { MonitorCommandType.Interact, new MonitorCommandResult { Output = "Interact with what? Use: interact <target>" } },
             { MonitorCommandType.Move, new MonitorCommandResult { Output = "Move where? Use: move <north|south|east|west>" } },
-            { MonitorCommandType.Help, new MonitorCommandResult { Output = "Commands: north | south | east | west | move <direction> | attack <direction or target> | interact <target> | help | clear" } },
+            { MonitorCommandType.Help, new MonitorCommandResult { Output = "Commands: north | south | east | west | move <direction> | attack <direction> | status | locate | tutorial | help | clear" } },
             { MonitorCommandType.Clear, new MonitorCommandResult { ClearTerminal = true } }
         };
     }
@@ -42,6 +42,26 @@ public class MonitorCommandExecutor
         if (commandType == MonitorCommandType.Interact)
         {
             return new MonitorCommandResult { Output = _interactionManager.Interact(parameters) };
+        }
+
+        if (commandType == MonitorCommandType.Path)
+        {
+            return new MonitorCommandResult { Output = _interactionManager.GetCurrentPath() };
+        }
+
+        if (commandType == MonitorCommandType.Status)
+        {
+            return new MonitorCommandResult { Output = _interactionManager.GetStatus() };
+        }
+
+        if (commandType == MonitorCommandType.Locate)
+        {
+            return new MonitorCommandResult { Output = _interactionManager.LocateNext(parameters) };
+        }
+
+        if (commandType == MonitorCommandType.Tutorial)
+        {
+            return new MonitorCommandResult { Output = _interactionManager.GetTutorial() };
         }
 
         if (_results.TryGetValue(commandType, out MonitorCommandResult result))

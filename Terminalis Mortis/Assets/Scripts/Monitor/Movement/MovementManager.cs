@@ -4,15 +4,30 @@ public class MovementManager
 {
     private readonly Transform _target;
     private readonly float _stepDistance;
+    private readonly GridGenerator _gridGenerator;
 
     public MovementManager(Transform target, float stepDistance)
     {
         _target = target;
         _stepDistance = stepDistance;
+        _gridGenerator = null;
+    }
+
+    public MovementManager(GridGenerator gridGenerator)
+    {
+        _target = null;
+        _stepDistance = 0f;
+        _gridGenerator = gridGenerator;
     }
 
     public string Move(MonitorCommandType directionCommand)
     {
+        if (_gridGenerator != null)
+        {
+            _gridGenerator.TryMovePlayer(directionCommand, out string result);
+            return result;
+        }
+
         switch (directionCommand)
         {
             case MonitorCommandType.North:

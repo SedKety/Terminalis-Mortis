@@ -9,5 +9,9 @@ public enum MonitorCommandType
     East = 6,
     West = 7,
     Help = 8,
-    Clear = 9
+    Clear = 9,
+    Path = 10,
+    Locate = 11,
+    Status = 12,
+    Tutorial = 13
 }

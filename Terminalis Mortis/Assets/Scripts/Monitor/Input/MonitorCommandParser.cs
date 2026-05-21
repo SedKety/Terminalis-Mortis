@@ -18,6 +18,13 @@ public class MonitorCommandParser
         { "interact", MonitorCommandType.Interact },
         { "use", MonitorCommandType.Interact },
         { "move", MonitorCommandType.Move },
+        { "path", MonitorCommandType.Path },
+        { "status", MonitorCommandType.Status },
+        { "where", MonitorCommandType.Status },
+        { "locate", MonitorCommandType.Locate },
+        { "cd", MonitorCommandType.Locate },
+        { "tutorial", MonitorCommandType.Tutorial },
+        { "start", MonitorCommandType.Tutorial },
         { "clear", MonitorCommandType.Clear },
         { "cls", MonitorCommandType.Clear }
     };
