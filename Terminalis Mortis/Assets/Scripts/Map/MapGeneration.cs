@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class MapGeneration : MonoBehaviour
 {
     [Header("Map Settings")]
-    public string[] map;
+    [SerializeField] private string[] map;
 
-    public float tileSize = 1f;
+    [SerializeField] private float tileSize;
 
     [System.Serializable]
     public class CharacterPrefab
@@ -16,7 +17,7 @@ public class MapGeneration : MonoBehaviour
     }
 
     [Header("Prefabs")]
-    public List<CharacterPrefab> characterPrefabs;
+    [SerializeField] private List<CharacterPrefab> characterPrefabs;
 
     private Dictionary<char, GameObject> prefabDictionary;
 
@@ -41,6 +42,8 @@ public class MapGeneration : MonoBehaviour
 
     void GenerateMap()
     {
+        OffsetMap();
+
         for (int z = 0; z < map.Length; z++)
         {
             string row = map[z];
@@ -50,17 +53,29 @@ public class MapGeneration : MonoBehaviour
                 char tile = row[x];
 
                 Vector3 position = new Vector3(x * tileSize, 0, -z * tileSize);
+                Quaternion rotation = Quaternion.Euler(45, 0, 0);
 
                 if (prefabDictionary.ContainsKey(tile))
                 {
-                    Instantiate(
-                        prefabDictionary[tile],
-                        position,
-                        Quaternion.identity,
-                        transform
-                    );
+                    Instantiate( prefabDictionary[tile], position, rotation, transform);
                 }
             }
         }
+    }
+
+    void OffsetMap()
+    {
+        int maxWidth = 0;
+
+        foreach (string row in map)
+        {
+            if (row.Length > maxWidth)
+                maxWidth = row.Length;
+        }
+
+        float offsetX = (maxWidth * tileSize) / 2f - tileSize / 2f;
+        float offsetZ = (map.Length * tileSize) / 2f - tileSize / 2f;
+
+        gameObject.transform.position = new Vector3 (offsetX, 0, -offsetZ);
     }
 }
