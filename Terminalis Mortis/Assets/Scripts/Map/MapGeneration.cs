@@ -1,81 +1,87 @@
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
 
-public class MapGeneration : MonoBehaviour
+public class GridGenerator : MonoBehaviour
 {
-    [Header("Map Settings")]
-    [SerializeField] private string[] map;
-
-    [SerializeField] private float tileSize;
-
-    [System.Serializable]
-    public class CharacterPrefab
-    {
-        public char character;
-        public GameObject prefab;
-    }
+    [Header("Settings")]
+    [SerializeField] private float tileSize = 1f;
 
     [Header("Prefabs")]
     [SerializeField] private List<CharacterPrefab> characterPrefabs;
 
-    private Dictionary<char, GameObject> prefabDictionary;
+    private Dictionary<AsciiCharacters, GameObject> prefabDictionary;
 
-    void Start()
+    private AsciiCharacters[,] map;
+
+   
+
+    [System.Serializable]
+    public class CharacterPrefab
     {
-        // Build dictionary
-        prefabDictionary = new Dictionary<char, GameObject>();
+        public AsciiCharacters character;
+        public GameObject prefab;
+    }
+    
+    void Awake()
+    {
+        BuildDictionary();
+        AsciiCharacters[,] myMap = new AsciiCharacters[,] {
+            {AsciiCharacters.aWall, AsciiCharacters.Wall, AsciiCharacters.Wall},
+            {AsciiCharacters.Wall, AsciiCharacters.Malware, AsciiCharacters.Wall },
+            {AsciiCharacters.Wall, AsciiCharacters.Player, AsciiCharacters.Wall }
+
+        };
+        SetMap(myMap);
+    }
+
+
+    public void SetMap(AsciiCharacter[,] newMap)
+    {
+        map = newMap;
+        GenerateMap(map);
+    }
+
+    private void BuildDictionary()
+    {
+        prefabDictionary = new Dictionary<AsciiCharacters, GameObject>();
 
         foreach (var item in characterPrefabs)
         {
-            prefabDictionary[item.character] = item.prefab;
+            if (!prefabDictionary.ContainsKey(item.character))
+                prefabDictionary.Add(item.character, item.prefab);
         }
-
-        GenerateMap();
     }
 
-    void SetNewMap(string[] newMap)
+    private void GenerateMap(AsciiCharacters[,] asciiCharacters)
     {
-        map = newMap;
-        GenerateMap();
-    }
+        ClearMap();
+        if (asciiCharacters == null) return;
 
-    void GenerateMap()
-    {
-        OffsetMap();
+        int width = asciiCharacters.GetLength(0);
+        int height = asciiCharacters.GetLength(1);
 
-        for (int z = 0; z < map.Length; z++)
+        for (int x = 0; x < width; x++)
         {
-            string row = map[z];
-
-            for (int x = 0; x < row.Length; x++)
+            for (int z = 0; z < height; z++)
             {
-                char tile = row[x];
+                AsciiCharacters tile = asciiCharacters[x, z];
+                if (tile == AsciiCharacters.Empty)
+                    continue;
+                if (!prefabDictionary.TryGetValue(tile, out GameObject prefab))
+                    continue;
 
-                Vector3 position = new Vector3(x * tileSize, 0, -z * tileSize);
-                Quaternion rotation = Quaternion.Euler(45, 0, 0);
-
-                if (prefabDictionary.ContainsKey(tile))
-                {
-                    Instantiate( prefabDictionary[tile], position, rotation, transform);
-                }
+                Vector3 pos = new Vector3(x * tileSize, 0, -z * tileSize);
+                Instantiate(prefab, pos, Quaternion.identity, transform);
             }
         }
     }
 
-    void OffsetMap()
+    private void ClearMap()
     {
-        int maxWidth = 0;
-
-        foreach (string row in map)
+        for (int i = transform.childCount - 1; i >= 0; i--)
         {
-            if (row.Length > maxWidth)
-                maxWidth = row.Length;
+            Destroy(transform.GetChild(i).gameObject);
         }
-
-        float offsetX = (maxWidth * tileSize) / 2f - tileSize / 2f;
-        float offsetZ = (map.Length * tileSize) / 2f - tileSize / 2f;
-
-        gameObject.transform.position = new Vector3 (offsetX, 0, -offsetZ);
     }
 }
