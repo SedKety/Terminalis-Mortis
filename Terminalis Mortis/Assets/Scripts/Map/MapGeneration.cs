@@ -227,6 +227,11 @@ public class GridGenerator : MonoBehaviour
             return "No enemy in that direction.";
         }
 
+        if (EventManager.Instance != null)
+        {
+            EventManager.Instance.RaiseEnemyHit(target);
+        }
+
         _combatController.DealDamageToEnemy(target, 1, _enemyController);
         if (!_enemyController.IsEnemyAlive(target))
         {
@@ -462,6 +467,10 @@ public class GridGenerator : MonoBehaviour
             if (distance <= 1)
             {
                 _combatController.DealDamageToPlayer(ref _playerHealth, enemyDamage);
+                if (EventManager.Instance != null)
+                {
+                    EventManager.Instance.RaisePlayerHit(enemyPos);
+                }
                 attacks++;
                 continue;
             }
@@ -480,6 +489,10 @@ public class GridGenerator : MonoBehaviour
             if (next == _playerPosition)
             {
                 _combatController.DealDamageToPlayer(ref _playerHealth, enemyDamage);
+                if (EventManager.Instance != null)
+                {
+                    EventManager.Instance.RaisePlayerHit(enemyPos);
+                }
                 attacks++;
                 continue;
             }

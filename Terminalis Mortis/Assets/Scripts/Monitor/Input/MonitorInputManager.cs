@@ -397,6 +397,11 @@ public class MonitorInputManager : MonoBehaviour
         }
 
         string commandText = _currentInput.Trim();
+        if (EventManager.Instance != null)
+        {
+            EventManager.Instance.RaiseEnter(commandText);
+        }
+
         MonitorCommandType commandType = _commandParser.ParseWithParameters(commandText, out string parameters);
         MonitorCommandResult result = _commandExecutor.Execute(commandType, parameters);
 
