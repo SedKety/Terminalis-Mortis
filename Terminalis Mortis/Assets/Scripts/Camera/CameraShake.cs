@@ -66,7 +66,6 @@ public class CameraShake : MonoBehaviour
             float x = Mathf.PerlinNoise(Time.time * 25f, 0f) * 2f - 1f;
             float y = Mathf.PerlinNoise(0f, Time.time * 25f) * 2f - 1f;
 
-            print(elapsed + duration);
             cameraShakePivot.localPosition = originalPosition + new Vector3(x, y, 0f) * dampened;
 
             elapsed += Time.deltaTime;
