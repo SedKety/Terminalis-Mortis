@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using TerminalisMortis.Events;
 
 public class MonitorInputManager : MonoBehaviour
 {
@@ -41,8 +42,8 @@ public class MonitorInputManager : MonoBehaviour
     private bool _bootSequencePlaying;
     private int _introIndex;
     private readonly List<string> _activeIntroPages = new List<string>();
-    private const string IconsIntroPage = "[ICON Meanings]\nP = you\n# = wall\nM = malware enemy\nV = virus enemy\nT = trojan enemy\nR = ransomware enemy";
-
+    private const string IconsIntroPage = "[ICON Meanings]\nP = you\n█ = wall\nM = malware enemy\nV = virus enemy\nT = trojan enemy\nR = ransomware enemy";
+     
     private void Start()
     {
         if (uiText == null)
@@ -397,9 +398,9 @@ public class MonitorInputManager : MonoBehaviour
         }
 
         string commandText = _currentInput.Trim();
-        if (EventManager.Instance != null)
+        if (TMEventManager.Instance != null)
         {
-            EventManager.Instance.RaiseEnter(commandText);
+            TMEventManager.Instance.RaiseEnter(commandText);
         }
 
         MonitorCommandType commandType = _commandParser.ParseWithParameters(commandText, out string parameters);

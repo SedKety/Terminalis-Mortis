@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class DungeonCombatController
 {
-    public void DealDamageToEnemy(Vector2Int position, int damage, DungeonEnemyController enemyController)
+    public bool DealDamageToEnemy(Vector2Int position, int damage, DungeonEnemyController enemyController)
     {
         if (damage <= 0 || enemyController == null)
         {
-            return;
+            return false;
         }
 
-        enemyController.KillEnemy(position);
+        return enemyController.DealDamageToEnemy(position, damage);
     }
 
     public void DealDamageToPlayer(ref int playerHealth, int damage)

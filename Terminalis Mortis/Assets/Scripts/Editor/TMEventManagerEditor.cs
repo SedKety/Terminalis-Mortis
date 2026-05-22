@@ -1,7 +1,7 @@
 using UnityEditor;
 
-[CustomEditor(typeof(EventManager))]
-public class EventManagerEditor : Editor
+[CustomEditor(typeof(TerminalisMortis.Events.TMEventManager))]
+public class TMEventManagerEditor : Editor
 {
     private SerializedProperty _onPlayerHit;
     private SerializedProperty _onEnemyHit;
@@ -21,7 +21,7 @@ public class EventManagerEditor : Editor
     {
         serializedObject.Update();
 
-        EditorGUILayout.LabelField("Event Manager", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("TM Event Manager", EditorStyles.boldLabel);
         EditorGUILayout.Space();
 
         _showCombat = EditorGUILayout.Foldout(_showCombat, "Combat Events", true);

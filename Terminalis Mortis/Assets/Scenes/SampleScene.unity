@@ -320,6 +320,7 @@ MonoBehaviour:
     prefab: {fileID: 919132149155446097, guid: 417ff941d2a5e6141a0505a8694e7d92, type: 3}
   - character: 36
     prefab: {fileID: 919132149155446097, guid: c6644f8badbbe2040963c49c1ba1e521, type: 3}
+  enemyManager: {fileID: 0}
   startingPlayerHealth: 10
   dungeonRootPath: users/dungeons
   batFilePopup: {fileID: 0}
@@ -880,6 +881,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919771960}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1019484874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1019484875}
+  - component: {fileID: 1019484876}
+  m_Layer: 0
+  m_Name: EnemyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1019484875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019484874}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2074903296}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1019484876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019484874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61009e776291af448b926f60920f086a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
+  enemyProfiles: []
 --- !u!1 &1073233687
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,15 +1072,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c9de33b855d1784da0999dd7b91c88e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventManager
-  onPlayerHit:
-    m_PersistentCalls:
-      m_Calls: []
-  onEnemyHit:
-    m_PersistentCalls:
-      m_Calls: []
-  onEnter:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &1712297463 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7669732957663238096, guid: 670f20a4f35fcb249b1a44693addaa66, type: 3}
@@ -1150,6 +1187,7 @@ Transform:
   m_Children:
   - {fileID: 587733258}
   - {fileID: 1583609375}
+  - {fileID: 1019484875}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
