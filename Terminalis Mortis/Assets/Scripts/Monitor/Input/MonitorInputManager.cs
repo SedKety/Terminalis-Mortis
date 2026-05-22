@@ -24,6 +24,7 @@ public class MonitorInputManager : MonoBehaviour
     [SerializeField, TextArea(2, 8)] private List<string> introPages = new List<string>
     {
         "Hello User, welcome to Terminalis Mortis",
+        "[SYS] To look at the playing field, use <UpArrow>",
         "[SYS] This is turn-based. Each move or attack spends one turn.",
         "[SYS] Use move <north|south|east|west> to move one tile in that direction.",
         "[SYS] Use attack <direction> to strike one adjacent tile.",

@@ -35,9 +35,9 @@ public class MovementManager
             case MonitorCommandType.South:
                 return Move(Vector3.back, "South");
             case MonitorCommandType.East:
-                return Move(Vector3.right, "East");
+                return Move(Vector3.left, "East");
             case MonitorCommandType.West:
-                return Move(Vector3.left, "West");
+                return Move(Vector3.right, "West");
             default:
                 return "Move where? Use: move <north|south|east|west>";
         }
